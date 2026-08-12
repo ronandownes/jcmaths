@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Geometry Player — JC Maths</title>
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+:root{
+  --ink:#202936;
+  --blue:#1565c0;
+  --muted:#657084;
+  --border:#b8c2cf;
+  --bg:#f3f6fa;
+  --panel:#ffffff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.player-page{max-width:1180px;margin:0 auto;padding:14px 16px 28px}
+.sequence-wrap{overflow:hidden;margin:2px 0 14px}
+.sequence-row{display:flex;gap:8px;overflow-x:auto;padding:2px 1px 8px;scrollbar-width:thin;overscroll-behavior-inline:contain}
+.sequence-row a{flex:1 0 150px;min-width:150px;display:flex;align-items:center;gap:9px;padding:9px 11px;border:1px solid #cbd3dd;border-radius:10px;background:#fff;color:var(--ink);text-decoration:none;font-weight:800;line-height:1.15}
+.sequence-row a:hover,.sequence-row a:focus-visible{border-color:#7ea4d3;outline:2px solid #b8d2ef;outline-offset:1px}
+.sequence-row a[aria-current="page"]{border-color:var(--blue);background:#eef5ff}
+.step-no{display:grid;place-items:center;flex:0 0 28px;height:28px;border-radius:50%;background:#e9edf2;color:#455160;font-size:.86rem;font-weight:900}
+.sequence-row a[aria-current="page"] .step-no{background:var(--blue);color:#fff}
+.step-copy{display:block;min-width:0}
+.step-copy small{display:block;color:var(--muted);font-size:.72rem;font-weight:850;text-transform:uppercase;letter-spacing:.04em;margin-bottom:1px}
+.step-copy span{display:block;white-space:normal}
+.player-head{display:flex;align-items:end;justify-content:space-between;gap:14px;margin:0 0 10px}
+.player-title-wrap{min-width:0}
+.eyebrow{margin:0 0 2px;color:var(--muted);font-size:.86rem;font-weight:850;text-transform:uppercase;letter-spacing:.06em}
+h1{margin:0;font-size:clamp(1.55rem,4vw,2.5rem);line-height:1.05}
+.player-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+button,.nav-btn{min-height:44px;padding:8px 13px;border:1px solid #aab5c3;border-radius:9px;background:#fff;color:var(--ink);font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+button:hover,button:focus-visible,.nav-btn:hover,.nav-btn:focus-visible{outline:2px solid #8db2df;outline-offset:2px}
+#fullscreenBtn{background:#eef5ff;border-color:#8fb3df}
+.stage{position:relative;background:#fff;border:2px solid var(--border);border-radius:13px;overflow:hidden;min-height:620px;height:min(78vh,900px)}
+.stage iframe{display:block;width:100%;height:100%;border:0;background:var(--bg)}
+.exit-fullscreen{display:none;position:absolute;z-index:30;right:12px;top:12px;background:#fff;border:1px solid #8794a5;box-shadow:0 2px 8px #0002}
+.stage:fullscreen{width:100vw;height:100vh;border:0;border-radius:0;background:var(--bg)}
+.stage:fullscreen .exit-fullscreen{display:inline-flex}
+.stage:-webkit-full-screen{width:100vw;height:100vh;border:0;border-radius:0;background:var(--bg)}
+.stage:-webkit-full-screen .exit-fullscreen{display:inline-flex}
+.lesson-nav{display:flex;justify-content:space-between;gap:10px;margin-top:10px}
+.lesson-nav .nav-btn{min-width:120px}
+.lesson-nav .disabled{visibility:hidden}
+body.focus-mode{overflow:hidden}
+body.focus-mode .site-shell,body.focus-mode .sequence-wrap,body.focus-mode .player-head,body.focus-mode .lesson-nav{display:none!important}
+body.focus-mode .player-page{max-width:none;padding:0;margin:0}
+body.focus-mode .stage{position:fixed;inset:0;width:100vw;height:100dvh;min-height:0;border:0;border-radius:0;z-index:9999}
+body.focus-mode .exit-fullscreen{display:inline-flex}
+@media(max-width:700px){
+  .player-page{padding:10px 10px 18px}
+  .player-head{align-items:stretch;flex-direction:column;gap:8px}
+  .player-actions{justify-content:stretch}
+  .player-actions button{width:100%}
+  .stage{height:74vh;min-height:540px;border-radius:10px}
+  .sequence-row a{flex-basis:142px;min-width:142px}
+}
+@media(max-width:430px){
+  .stage{min-height:500px;height:72vh}
+  .sequence-row a{flex-basis:132px;min-width:132px;padding:8px}
+  .step-no{flex-basis:25px;height:25px}
+}
+</style>
+</head>
+<body>
+<header class="site-shell">
+  <div class="site-shell-inner">
+    <a class="site-brand" href="../../index.html"><span class="site-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>JC Maths</span></a>
+    <nav class="site-nav"><a href="../../index.html">Home</a><a href="../">Geometry</a></nav>
+  </div>
+</header>
+
+<main class="player-page">
+  <div class="sequence-wrap">
+    <nav id="sequenceRow" class="sequence-row" aria-label="Geometry sequence"></nav>
+  </div>
+
+  <div class="player-head">
+    <div class="player-title-wrap">
+      <p id="eyebrow" class="eyebrow"></p>
+      <h1 id="lessonTitle">Geometry</h1>
+    </div>
+    <div class="player-actions">
+      <button id="fullscreenBtn" type="button">Full screen</button>
+    </div>
+  </div>
+
+  <section id="stage" class="stage" aria-label="Interactive geometry lesson">
+    <button id="exitFullscreen" class="exit-fullscreen" type="button">Exit full screen</button>
+    <iframe id="lessonFrame" title="Geometry lesson" allowfullscreen></iframe>
+  </section>
+
+  <nav class="lesson-nav" aria-label="Previous and next geometry lesson">
+    <a id="prevBtn" class="nav-btn" href="#">← Previous</a>
+    <a id="nextBtn" class="nav-btn" href="#">Next →</a>
+  </nav>
+</main>
+
+<script>
+const LESSONS=[
+  {id:'terms',label:'Terms',kind:'Foundation',src:'../terms/'},
+  {id:'notation',label:'Points & Lines',kind:'Notation 1',src:'../notation-1/'},
+  {id:'axiom',label:'Two Points',kind:'Axiom 1',src:'../axiom-1/'},
+  {id:'parts',label:'Parts of an Angle',kind:'Angle',src:'../../apps/parts-of-an-angle/'},
+  {id:'angles',label:'Exploring Angles',kind:'Angle',src:'../../apps/exploring-angles/'},
+  {id:'theorem',label:'Vertically Opposite',kind:'Theorem 1',src:'../theorem-1/'}
+];
+
+const params=new URLSearchParams(location.search);
+let lessonId=params.get('lesson')||'terms';
+let index=LESSONS.findIndex(x=>x.id===lessonId);
+if(index<0){index=0;lessonId=LESSONS[0].id}
+const lesson=LESSONS[index];
+
+const sequenceRow=document.getElementById('sequenceRow');
+const lessonTitle=document.getElementById('lessonTitle');
+const eyebrow=document.getElementById('eyebrow');
+const frame=document.getElementById('lessonFrame');
+const stage=document.getElementById('stage');
+const fullscreenBtn=document.getElementById('fullscreenBtn');
+const exitFullscreen=document.getElementById('exitFullscreen');
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
+
+function lessonHref(id){return `?lesson=${encodeURIComponent(id)}`}
+
+LESSONS.forEach((item,i)=>{
+  const a=document.createElement('a');
+  a.href=lessonHref(item.id);
+  if(item.id===lesson.id)a.setAttribute('aria-current','page');
+  a.innerHTML=`<span class="step-no">${i+1}</span><span class="step-copy"><small>${item.kind}</small><span>${item.label}</span></span>`;
+  sequenceRow.appendChild(a);
+});
+
+lessonTitle.textContent=lesson.label;
+eyebrow.textContent=`${lesson.kind} · Step ${index+1} of ${LESSONS.length}`;
+document.title=`${lesson.label} — JC Maths`;
+frame.title=lesson.label;
+frame.src=lesson.src;
+
+if(index===0){prevBtn.classList.add('disabled');prevBtn.removeAttribute('href')}else{prevBtn.href=lessonHref(LESSONS[index-1].id)}
+if(index===LESSONS.length-1){nextBtn.classList.add('disabled');nextBtn.removeAttribute('href')}else{nextBtn.href=lessonHref(LESSONS[index+1].id)}
+
+const embeddedCss=`
+  html{background:#f3f6fa!important}
+  body.geometry-player-embedded{background:#f3f6fa!important}
+  body.geometry-player-embedded>.site-shell{display:none!important}
+  body.geometry-player-embedded main{max-width:980px!important;margin:0 auto!important;padding:16px 18px 50px!important}
+  body.geometry-player-embedded main>h1{display:none!important}
+  body.geometry-player-embedded main>.kicker,
+  body.geometry-player-embedded main>p.kicker{display:none!important}
+  body.geometry-player-embedded .toolbar,
+  body.geometry-player-embedded .namebar{gap:8px!important;justify-content:center!important}
+  body.geometry-player-embedded button{min-height:48px!important;padding:9px 13px!important;border-radius:9px!important;font-size:clamp(1rem,2.2vw,1.2rem)!important;font-weight:800!important}
+  body.geometry-player-embedded svg{border:2px solid #aab5c3!important;border-radius:12px!important;background:#fff!important}
+  body.geometry-player-embedded .status{font-size:clamp(1.2rem,3.4vw,2rem)!important;line-height:1.25!important;font-weight:900!important;text-align:center!important}
+  body.geometry-player-embedded .card,
+  body.geometry-player-embedded .definition,
+  body.geometry-player-embedded .quiz,
+  body.geometry-player-embedded .note{border-radius:10px!important}
+  body.geometry-player-embedded .lead{margin-top:4px!important}
+  @media(max-width:640px){
+    body.geometry-player-embedded main{padding:12px 10px 36px!important}
+    body.geometry-player-embedded button{min-height:46px!important}
+  }
+`;
+
+function polishEmbeddedLesson(){
+  try{
+    const doc=frame.contentDocument;
+    if(!doc||!doc.body)return;
+    doc.body.classList.add('geometry-player-embedded');
+    let style=doc.getElementById('geometry-player-style');
+    if(!style){
+      style=doc.createElement('style');
+      style.id='geometry-player-style';
+      style.textContent=embeddedCss;
+      doc.head.appendChild(style);
+    }
+  }catch(err){
+    console.warn('Could not apply embedded lesson styling.',err);
+  }
+}
+frame.addEventListener('load',polishEmbeddedLesson);
+
+function isFullscreen(){return document.fullscreenElement===stage||document.webkitFullscreenElement===stage}
+function setButtonLabel(){
+  const active=isFullscreen()||document.body.classList.contains('focus-mode');
+  fullscreenBtn.textContent=active?'Exit full screen':'Full screen';
+}
+
+async function enterFullscreen(){
+  try{
+    if(stage.requestFullscreen){await stage.requestFullscreen();return true}
+    if(stage.webkitRequestFullscreen){stage.webkitRequestFullscreen();return true}
+  }catch(err){console.warn('Native fullscreen unavailable, using focus mode.',err)}
+  document.body.classList.add('focus-mode');
+  setButtonLabel();
+  return false;
+}
+
+async function leaveFullscreen(){
+  if(document.fullscreenElement&&document.exitFullscreen){await document.exitFullscreen();return}
+  if(document.webkitFullscreenElement&&document.webkitExitFullscreen){document.webkitExitFullscreen();return}
+  document.body.classList.remove('focus-mode');
+  setButtonLabel();
+}
+
+async function toggleFullscreen(){
+  if(isFullscreen()||document.body.classList.contains('focus-mode'))await leaveFullscreen();
+  else await enterFullscreen();
+}
+
+fullscreenBtn.addEventListener('click',toggleFullscreen);
+exitFullscreen.addEventListener('click',leaveFullscreen);
+document.addEventListener('fullscreenchange',()=>{document.body.classList.remove('focus-mode');setButtonLabel()});
+document.addEventListener('webkitfullscreenchange',()=>{document.body.classList.remove('focus-mode');setButtonLabel()});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&document.body.classList.contains('focus-mode'))leaveFullscreen();
+});
+
+setButtonLabel();
+</script>
+</body>
+</html>
