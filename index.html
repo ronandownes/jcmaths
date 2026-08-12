@@ -1,1 +1,58 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JC Maths</title><link rel="icon" type="image/svg+xml" href="assets/favicon.svg"><link rel="stylesheet" href="assets/site.css"><style>body{margin:0;background:#f7f7f5;color:#202936;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}.home{max-width:940px;margin:0 auto;padding:42px 20px 64px}.intro{max-width:720px}.intro h1{font-size:clamp(2.3rem,7vw,4rem);margin:0 0 10px;letter-spacing:-.03em}.intro p{font-size:1.15rem;line-height:1.55;color:#566070;margin:0}.section-title{font-size:1.7rem;margin:48px 0 14px}.app-list{display:grid;gap:14px}.app-card{display:block;background:#fff;border:1px solid #d7dce3;border-radius:10px;padding:20px;color:inherit;text-decoration:none}.app-card:focus,.app-card:hover{border-color:#8ca6c7;outline:none}.app-card h2{margin:0 0 6px;font-size:1.35rem}.app-card p{margin:0;color:#626c7a;line-height:1.45}</style></head><body><header class="site-shell"><div class="site-shell-inner"><a class="site-brand" href="index.html"><span class="site-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>JC Maths</span></a><nav class="site-nav"><a href="index.html">Home</a><a href="geometry/">Geometry</a></nav></div></header><main class="home"><section class="intro"><h1>JC Maths</h1><p>Clear, interactive mathematics. Start with one idea, explore it, and build from there.</p></section><section id="geometry"><h2 class="section-title">Geometry</h2><div class="app-list"><a class="app-card" href="geometry/"><h2>Geometry pathway</h2><p>Start with the Appendix B terms, notation and axioms, then move into the interactive angle work.</p></a><a class="app-card" href="apps/parts-of-an-angle/"><h2>Parts of an Angle</h2><p>Explore the vertex, arms, inside and notation of an angle. Then build your own.</p></a><a class="app-card" href="apps/exploring-angles/"><h2>Exploring Angles</h2><p>Move the arms and explore acute, right, obtuse, straight, reflex, full and null angles.</p></a></div></section></main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JC Maths</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+:root{--ink:#202936;--muted:#657084;--border:#d7dce3;--bg:#f7f7f5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.home{max-width:1180px;margin:0 auto;padding:42px 20px 64px}
+.intro{max-width:760px}
+.intro h1{font-size:clamp(2.3rem,7vw,4rem);margin:0 0 10px;letter-spacing:-.03em}
+.intro p{font-size:1.15rem;line-height:1.55;color:#566070;margin:0}
+.section-title{font-size:1.7rem;margin:46px 0 6px}
+.section-copy{margin:0 0 16px;color:#626c7a;line-height:1.45}
+.sequence{display:flex;gap:10px;overflow-x:auto;padding:2px 1px 12px;scrollbar-width:thin;overscroll-behavior-inline:contain}
+.sequence a{flex:1 0 165px;min-width:165px;display:block;background:#fff;border:1px solid var(--border);border-radius:11px;padding:14px;color:inherit;text-decoration:none}
+.sequence a:hover,.sequence a:focus-visible{border-color:#8ca6c7;outline:2px solid #bfd0e6;outline-offset:1px}
+.step{display:grid;place-items:center;width:29px;height:29px;border-radius:50%;background:#eef2f6;color:#455160;font-size:.86rem;font-weight:950;margin-bottom:9px}
+.sequence strong{display:block;font-size:1.04rem;line-height:1.2;margin-bottom:4px}
+.sequence span.copy{display:block;color:#687280;font-size:.91rem;line-height:1.35}
+.geometry-link{display:inline-flex;margin-top:14px;min-height:44px;align-items:center;padding:8px 13px;border:1px solid #9db7d7;border-radius:9px;background:#eef5ff;color:inherit;text-decoration:none;font-weight:850}
+.geometry-link:hover,.geometry-link:focus-visible{outline:2px solid #8db2df;outline-offset:2px}
+@media(max-width:640px){.home{padding:30px 12px 48px}.sequence a{flex-basis:150px;min-width:150px;padding:12px}}
+</style>
+</head>
+<body>
+<header class="site-shell">
+  <div class="site-shell-inner">
+    <a class="site-brand" href="index.html"><span class="site-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>JC Maths</span></a>
+    <nav class="site-nav"><a href="index.html">Home</a><a href="geometry/">Geometry</a></nav>
+  </div>
+</header>
+<main class="home">
+  <section class="intro">
+    <h1>JC Maths</h1>
+    <p>Clear, interactive mathematics. Start with one idea, explore it, and build from there.</p>
+  </section>
+
+  <section id="geometry">
+    <h2 class="section-title">Geometry</h2>
+    <p class="section-copy">One sequence, left to right. Open any lesson in the shared player and use full screen when you want the mathematics to take over the display.</p>
+    <nav class="sequence" aria-label="Geometry sequence">
+      <a href="geometry/player/?lesson=terms"><span class="step">1</span><strong>Terms</strong><span class="copy">Geometry language.</span></a>
+      <a href="geometry/player/?lesson=notation"><span class="step">2</span><strong>Points &amp; Lines</strong><span class="copy">Notation 1.</span></a>
+      <a href="geometry/player/?lesson=axiom"><span class="step">3</span><strong>Two Points</strong><span class="copy">Axiom 1.</span></a>
+      <a href="geometry/player/?lesson=parts"><span class="step">4</span><strong>Parts of an Angle</strong><span class="copy">Vertex, arms, inside.</span></a>
+      <a href="geometry/player/?lesson=angles"><span class="step">5</span><strong>Exploring Angles</strong><span class="copy">Angle types and definitions.</span></a>
+      <a href="geometry/player/?lesson=theorem"><span class="step">6</span><strong>Vertically Opposite</strong><span class="copy">Theorem 1.</span></a>
+    </nav>
+    <a class="geometry-link" href="geometry/">Open Geometry →</a>
+  </section>
+</main>
+</body>
+</html>
