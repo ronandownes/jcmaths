@@ -22,8 +22,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple
 .step{display:grid;place-items:center;width:29px;height:29px;border-radius:50%;background:#eef2f6;color:#455160;font-size:.86rem;font-weight:950;margin-bottom:9px}
 .sequence strong{display:block;font-size:1.04rem;line-height:1.2;margin-bottom:4px}
 .sequence span.copy{display:block;color:#687280;font-size:.91rem;line-height:1.35}
-.geometry-link{display:inline-flex;margin-top:14px;min-height:44px;align-items:center;padding:8px 13px;border:1px solid #9db7d7;border-radius:9px;background:#eef5ff;color:inherit;text-decoration:none;font-weight:850}
-.geometry-link:hover,.geometry-link:focus-visible{outline:2px solid #8db2df;outline-offset:2px}
+.section-link{display:inline-flex;margin-top:14px;min-height:44px;align-items:center;padding:8px 13px;border:1px solid #9db7d7;border-radius:9px;background:#eef5ff;color:inherit;text-decoration:none;font-weight:850}
+.section-link:hover,.section-link:focus-visible{outline:2px solid #8db2df;outline-offset:2px}
 @media(max-width:640px){.home{padding:30px 12px 48px}.sequence a{flex-basis:150px;min-width:150px;padding:12px}}
 </style>
 </head>
@@ -31,13 +31,22 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple
 <header class="site-shell">
   <div class="site-shell-inner">
     <a class="site-brand" href="index.html"><span class="site-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>JC Maths</span></a>
-    <nav class="site-nav"><a href="index.html">Home</a><a href="geometry/">Geometry</a></nav>
+    <nav class="site-nav"><a href="index.html">Home</a><a href="algebra/">Algebra</a><a href="geometry/">Geometry</a></nav>
   </div>
 </header>
 <main class="home">
   <section class="intro">
     <h1>JC Maths</h1>
     <p>Clear, interactive mathematics. Start with one idea, explore it, and build from there.</p>
+  </section>
+
+  <section id="algebra">
+    <h2 class="section-title">Algebra</h2>
+    <p class="section-copy">Short classroom activities that build algebra one step at a time, with answer reveals and full-screen teaching mode.</p>
+    <nav class="sequence" aria-label="Algebra sequence">
+      <a href="algebra/simplify-expressions/"><span class="step">1</span><strong>Simplify Expressions</strong><span class="copy">Collect like terms.</span></a>
+    </nav>
+    <a class="section-link" href="algebra/">Open Algebra →</a>
   </section>
 
   <section id="geometry">
@@ -51,7 +60,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple
       <a href="geometry/player/?lesson=angles"><span class="step">5</span><strong>Exploring Angles</strong><span class="copy">Angle types and definitions.</span></a>
       <a href="geometry/player/?lesson=theorem"><span class="step">6</span><strong>Vertically Opposite</strong><span class="copy">Theorem 1.</span></a>
     </nav>
-    <a class="geometry-link" href="geometry/">Open Geometry →</a>
+    <a class="section-link" href="geometry/">Open Geometry →</a>
   </section>
 </main>
 </body>
