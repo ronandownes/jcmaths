@@ -56,7 +56,7 @@
               </details>
             </div>
             <div class="site-navitem${active('trigonometry')}">
-              <a class="site-navlink" href="${url('index.html#trigonometry')}"><span>Trigono-<br>metry</span></a>
+              <a class="site-navlink" href="${url('index.html#trigonometry')}"><span>Trigonometry</span></a>
             </div>
             <div class="site-navitem${active('statistics')}">
               <a class="site-navlink" href="${url('index.html#statistics')}"><span>Statistics</span></a>
@@ -65,7 +65,7 @@
               <a class="site-navlink" href="${url('index.html#probability')}"><span>Probability</span></a>
             </div>
             <div class="site-navitem reference${active('specification')}">
-              <a class="site-navlink site-reference-link" href="${spec}overview.html"><span>Specifi-<br>cation</span></a>
+              <a class="site-navlink site-reference-link" href="${spec}overview.html"><span>Specification</span></a>
               <details class="site-navmenu">
                 <summary aria-label="Open specification menu">▾</summary>
                 <div class="site-dropdown">
