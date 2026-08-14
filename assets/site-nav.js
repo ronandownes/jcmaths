@@ -4,7 +4,6 @@
   const script = document.currentScript || [...document.scripts].find(s => /site-nav\.js(?:\?|$)/.test(s.src));
   const root = script ? new URL('../', script.src) : new URL('./', location.href);
   const url = path => new URL(path, root).href;
-  const spec = 'https://ronandownes.github.io/jcmathsspec/sections/';
   const area = shell.dataset.area || '';
   const active = name => area === name ? ' active' : '';
   shell.innerHTML = `
@@ -19,7 +18,7 @@
         <div class="site-navitem${active('trigonometry')}"><a class="site-navlink" href="${url('index.html#trigonometry')}"><span>Trigonometry</span></a></div>
         <div class="site-navitem${active('statistics')}"><a class="site-navlink" href="${url('index.html#statistics')}"><span>Statistics</span></a></div>
         <div class="site-navitem${active('probability')}"><a class="site-navlink" href="${url('index.html#probability')}"><span>Probability</span></a></div>
-        <div class="site-navitem reference${active('specification')}"><a class="site-navlink site-reference-link" href="${spec}overview.html"><span>Specification</span></a><details class="site-navmenu"><summary aria-label="Open specification menu">▾</summary><div class="site-dropdown"><span class="drop-label">Preamble</span><a href="${spec}overview.html#introduction-01">Introduction</a><a href="${spec}overview.html#rationale-01">Rationale</a><a href="${spec}overview.html#aim-01">Aim</a><a href="${spec}overview.html#proficiency-conceptual">Mathematical proficiency</a><a href="${spec}overview.html#course-structure">Course structure</a><span class="drop-label">Reference</span><a href="${spec}unifying.html#unifying-overview">Unifying learning outcomes</a><a href="${spec}assessment-reporting.html#assessment-overview">Assessment &amp; Reporting</a></div></details></div>
+        <div class="site-navitem reference${active('specification')}"><a class="site-navlink site-reference-link" href="${url('specification/')}"><span>Specification</span></a><details class="site-navmenu"><summary aria-label="Open specification menu">▾</summary><div class="site-dropdown"><span class="drop-label">Specification</span><a href="${url('specification/')}">Overview</a><a href="${url('specification/index.html#rationale')}">Rationale</a><a href="${url('specification/index.html#aim')}">Aim</a><a href="${url('specification/index.html#course')}">Course structure</a><span class="drop-label">Learning outcomes</span><a href="${url('specification/learning-outcomes.html#unifying')}">Unifying strand</a><a href="${url('specification/learning-outcomes.html#number')}">Number</a><a href="${url('specification/learning-outcomes.html#geometry')}">Geometry &amp; trigonometry</a><a href="${url('specification/learning-outcomes.html#algebra')}">Algebra &amp; functions</a><a href="${url('specification/learning-outcomes.html#statistics')}">Statistics &amp; probability</a><span class="drop-label">Assessment & appendices</span><a href="${url('specification/assessment.html')}">Assessment &amp; Reporting</a><a href="${url('specification/appendix-a.html')}">Appendix A · Action verbs</a><a href="${url('specification/appendix-b.html')}">Appendix B · Geometry</a></div></details></div>
       </nav></div></div>
     </div>`;
   const details = [...shell.querySelectorAll('details.site-navmenu')];
