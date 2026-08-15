@@ -3,34 +3,78 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Geometry — JC Maths</title>
+<title>Geometry and Trigonometry — JC Maths</title>
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/strand.css">
 <link rel="stylesheet" href="../specification/spec.css">
 <script defer src="../assets/site-nav.js"></script>
-<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']]},svg:{fontCache:'global'}};</script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<script src="../assets/mathjax-config.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
 <script defer src="../assets/geometry-apps.js"></script>
 <script defer src="geometry-page.js"></script>
 <style>
-.geometry-hero{width:min(1040px,100%);margin:0 auto;background:#fff;border:1px solid #e0e0e0;box-shadow:0 1px 3px rgba(60,64,67,.16);padding:42px 54px 34px}
-.geometry-hero h1{font-size:2rem;line-height:1.15;margin:0 0 12px;font-weight:600;letter-spacing:-.02em}.geometry-hero p{max-width:820px;color:#5f6368;line-height:1.65}.geometry-hero strong{color:#202124}.geometry-hero a{color:#1a73e8}
-#geometryApps{width:min(1040px,100%);margin:18px auto}.geometry-apps-panel{background:#fff;border:1px solid #e0e0e0;box-shadow:0 1px 3px rgba(60,64,67,.16);padding:28px 32px}.geometry-apps-panel h2{margin:0 0 8px;font-size:1.35rem}.geometry-apps-intro{margin:0 0 18px;color:#5f6368}.geometry-app-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.geometry-app-card{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:14px;border:1px solid #dadce0;border-radius:9px;text-decoration:none;color:#202124;background:#fff}.geometry-app-card:hover,.geometry-app-card:focus-visible{background:#f8f9fa;border-color:#b7c8df;outline:none}.geometry-app-step{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#eef2f6;font-weight:700}.geometry-app-card strong,.geometry-app-card small{display:block}.geometry-app-card small{margin-top:2px;color:#5f6368;line-height:1.35}.geometry-app-open{font-weight:700;color:#174ea6;white-space:nowrap}.geometry-source-note{padding:10px 12px;background:#eef5ff;border-left:3px solid #1a73e8;color:#3c4043}.geometry-source-paper h2{scroll-margin-top:100px}
-#appendixGeometrySource{width:min(1040px,100%);margin:18px auto 72px}.geometry-source-paper{margin:0 0 18px}
-@media(max-width:700px){.geometry-hero{border-left:0;border-right:0;box-shadow:none;padding:30px 20px}.geometry-apps-panel{border-left:0;border-right:0;box-shadow:none;padding:22px 18px}.geometry-app-grid{grid-template-columns:1fr}.geometry-app-card{grid-template-columns:auto 1fr}.geometry-app-open{grid-column:2}.geometry-source-paper{margin-bottom:0}}
+#geometryApps,#appendixGeometrySource{width:min(900px,100%);margin:18px auto}.geometry-apps-panel{background:#fff;border:1px solid #e0e0e0;box-shadow:0 1px 3px rgba(60,64,67,.16);padding:28px 32px}.geometry-apps-panel h3{margin:0 0 8px;font-size:1.25rem}.geometry-apps-intro{margin:0 0 18px;color:#5f6368}.geometry-app-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.geometry-app-card{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:14px;border:1px solid #dadce0;border-radius:9px;text-decoration:none;color:#202124;background:#fff}.geometry-app-card:hover,.geometry-app-card:focus-visible{background:#f8f9fa;border-color:#b7c8df;outline:none}.geometry-app-step{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#eef2f6;font-weight:700}.geometry-app-card strong,.geometry-app-card small{display:block}.geometry-app-card small{margin-top:2px;color:#5f6368;line-height:1.35}.geometry-app-open{font-weight:700;color:#174ea6;white-space:nowrap}.geometry-source-note{padding:10px 12px;background:#eef5ff;border-left:3px solid #1a73e8;color:#3c4043}.geometry-source-paper{margin:0 0 18px}@media(max-width:700px){.geometry-apps-panel{border-left:0;border-right:0;box-shadow:none;padding:22px 18px}.geometry-app-grid{grid-template-columns:1fr}.geometry-app-card{grid-template-columns:auto 1fr}.geometry-app-open{grid-column:2}}
 </style>
 </head>
 <body>
 <header class="site-shell" data-site-nav data-area="geometry"></header>
 <main class="page-stage">
-  <section class="geometry-hero">
-    <h1>Geometry</h1>
-    <p><strong>Your interactive Geometry apps are the teaching layer.</strong> The formal definitions, axioms, theorems, corollaries and constructions underneath come directly from Appendix B, so there is only one textual source of truth.</p>
-    <p><a href="../specification/appendix-b.html">Open the canonical Appendix B →</a></p>
-  </section>
+<article class="doc-paper strand-paper">
+<p class="doc-kicker">Junior Cycle Mathematics</p>
+<h1>Geometry and Trigonometry</h1>
+<p class="doc-intro">The learning outcomes below follow the wording of the Junior Cycle Mathematics specification. Each learning outcome is an H2 and feeds this strand’s dropdown automatically.</p>
 
-  <div id="geometryApps" aria-label="Interactive geometry apps"></div>
-  <div id="appendixGeometrySource" aria-live="polite"><article class="doc-paper"><p>Loading Appendix B geometry content…</p></article></div>
+<section class="learning-outcome" aria-labelledby="gt-1">
+<h2 id="gt-1">GT.1 — calculate, interpret, and apply units of measure and time</h2>
+</section>
+
+<section class="learning-outcome" aria-labelledby="gt-2">
+<h2 id="gt-2">GT.2 — investigate 2D shapes and 3D solids so that they can:</h2>
+<ol class="outcome-parts">
+<li>draw and interpret scaled diagrams</li>
+<li>draw and interpret nets of rectangular solids, prisms (polygonal bases), cylinders</li>
+<li>find the perimeter and area of plane figures made from combinations of discs, triangles, and rectangles, including relevant operations involving pi</li>
+<li>find the volume of rectangular solids, cylinders, triangular-based prisms, spheres, and combinations of these, including relevant operations involving pi</li>
+<li>find the surface area and curved surface area (as appropriate) of rectangular solids, cylinders, triangular-based prisms, spheres, and combinations of these</li>
+</ol>
+</section>
+
+<section class="learning-outcome" aria-labelledby="gt-3">
+<h2 id="gt-3">GT.3 — investigate the concept of proof through their engagement with geometry so that they can:</h2>
+<ol class="outcome-parts">
+<li>perform constructions 1 to 15 in Geometry for Post-Primary School Mathematics (constructions 3 and 7 at HL only)</li>
+<li>recall and use the concepts, axioms, theorems, corollaries and converses, specified in Geometry for Post-Primary School Mathematics (section 9 for OL and section 10 for HL)<br>i.) axioms 1, 2, 3, 4 and 5<br>ii.) theorems 1, 2, 3, 4, 5, 6, 9, 10, 13, 14, 15 and 11, 12, 19, and appropriate converses, including relevant operations involving square roots<br>iii.) corollaries 3, 4 and 1, 2, 5 and appropriate converses</li>
+<li>use and explain the terms: theorem, proof, axiom, corollary, converse, and implies</li>
+<li>create and evaluate proofs of geometrical propositions</li>
+<li>display understanding of the proofs of theorems 1, 2, 3, 4, 5, 6, 9, 10, 14, 15, and 13, 19; and of corollaries 3, 4, and 1, 2, 5 (full formal proofs are not examinable)</li>
+</ol>
+</section>
+
+<section class="learning-outcome" aria-labelledby="gt-4">
+<h2 id="gt-4">GT.4 — evaluate and use trigonometric ratios (sin, cos, and tan, defined in terms of right-angled triangles) and their inverses, involving angles between 0° and 90° at integer values and in decimal form</h2>
+</section>
+
+<section class="learning-outcome" aria-labelledby="gt-5">
+<h2 id="gt-5">GT.5 — investigate properties of points, lines and line segments in the co-ordinate plane so that they can:</h2>
+<ol class="outcome-parts">
+<li>find and interpret: distance, midpoint, slope, point of intersection, and slopes of parallel and perpendicular lines</li>
+<li>draw graphs of line segments and interpret such graphs in context, including discussing the rate of change (slope) and the y intercept</li>
+<li>find and interpret the equation of a line in the form \(y=mx+c\); \(y-y_1=m(x-x_1)\); and \(ax+by+c=0\) (for \(a,b,c,m,x_1,y_1\in\mathbb Q\)); including finding the slope, the y intercept, and other points on the line</li>
+</ol>
+</section>
+
+<section class="learning-outcome" aria-labelledby="gt-6">
+<h2 id="gt-6">GT.6 — investigate transformations of simple objects so that they can:</h2>
+<ol class="outcome-parts">
+<li>recognise and draw the image of points and objects under translation, central symmetry, axial symmetry, and rotation</li>
+<li>draw the axes of symmetry in shapes</li>
+</ol>
+</section>
+</article>
+
+<div id="geometryApps" aria-label="Interactive geometry apps"></div>
+<div id="appendixGeometrySource" aria-live="polite"><article class="doc-paper"><p>Loading Appendix B geometry content…</p></article></div>
 </main>
 </body>
 </html>
