@@ -8,7 +8,7 @@
 
   const areas = [
     {key:'unifying',label:'Unifying',href:'unifying/'},
-    {key:'number',label:'Number',href:'index.html#number'},
+    {key:'number',label:'Number',href:'number/'},
     {key:'algebra',label:'Algebra',href:'algebra/'},
     {key:'functions',label:'Functions',href:'index.html#functions'},
     {key:'geometry',label:'Geometry',href:'geometry/',menuSource:'specification/appendix-b.html',menuTarget:'geometry/'},
