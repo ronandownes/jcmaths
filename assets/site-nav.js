@@ -9,12 +9,9 @@
   const areas = [
     {key:'unifying',label:'Unifying',href:'unifying/'},
     {key:'number',label:'Number',href:'number/'},
-    {key:'algebra',label:'Algebra',href:'algebra/'},
-    {key:'functions',label:'Functions',href:'functions/'},
-    {key:'geometry',label:'Geometry',href:'geometry/',menuSource:'specification/appendix-b.html',menuTarget:'geometry/'},
-    {key:'trigonometry',label:'Trigonometry',href:'trigonometry/'},
-    {key:'statistics',label:'Statistics',href:'statistics/'},
-    {key:'probability',label:'Probability',href:'probability/'}
+    {key:'geometry',label:'Geometry and Trigonometry',href:'geometry/'},
+    {key:'algebra',label:'Algebra and Functions',href:'algebra/'},
+    {key:'statistics',label:'Statistics and Probability',href:'statistics/'}
   ];
 
   shell.innerHTML = `
@@ -22,7 +19,7 @@
       <a class="site-brand" href="${url('index.html')}" aria-label="JC Maths home"><span class="site-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>JC Maths</span></a>
       <button class="mobile-nav-toggle" type="button" aria-controls="mainMathsNav" aria-expanded="false" aria-label="Open main navigation"><span class="mobile-nav-icon" aria-hidden="true"></span></button>
       <nav class="site-nav" id="mainMathsNav" aria-label="Main mathematics navigation">
-        ${areas.map(a => `<div class="site-navitem${activeArea===a.key?' active':''}" data-area="${a.key}" data-menu-source="${url(a.menuSource || a.href.split('#')[0] || 'index.html')}" data-menu-target="${url(a.menuTarget || a.href.split('#')[0] || 'index.html')}"><a class="site-navlink" href="${url(a.href)}"><span>${a.label}</span></a><button class="site-navtoggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open ${a.label} menu"></button><div class="site-dropdown" aria-label="${a.label} topics"></div></div>`).join('')}
+        ${areas.map(a => `<div class="site-navitem${activeArea===a.key?' active':''}" data-area="${a.key}" data-menu-source="${url(a.href.split('#')[0] || 'index.html')}" data-menu-target="${url(a.href.split('#')[0] || 'index.html')}"><a class="site-navlink" href="${url(a.href)}"><span>${a.label}</span></a><button class="site-navtoggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open ${a.label} menu"></button><div class="site-dropdown" aria-label="${a.label} topics"></div></div>`).join('')}
         <div class="site-navitem reference${activeArea==='specification'?' active':''}" data-area="specification" data-menu-source="${url('specification/')}" data-menu-target="${url('specification/')}"><a class="site-navlink" href="${url('specification/')}"><span>Specification</span></a><button class="site-navtoggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open Specification menu"></button><div class="site-dropdown" aria-label="Specification topics"></div></div>
       </nav>
     </div>`;
