@@ -7,22 +7,26 @@
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <link rel="stylesheet" href="../assets/site.css">
 <script defer src="../assets/site-nav.js"></script>
-<style>
-:root{--ink:#202936;--muted:#657084;--border:#c9d1dc;--bg:#f5f7fa}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
-main{max-width:1180px;margin:auto;padding:28px 18px 60px}h1{font-size:clamp(2.2rem,7vw,4.2rem);margin:.12em 0 .15em}.lead{max-width:820px;font-size:1.15rem;line-height:1.55;color:#566070;margin:0}.sequence-title{margin:28px 0 10px;font-size:1rem;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.07em}.sequence{display:flex;gap:10px;overflow-x:auto;padding:2px 1px 12px;scrollbar-width:thin;overscroll-behavior-inline:contain}.sequence a{flex:1 0 190px;min-width:190px;display:block;background:#fff;border:1px solid var(--border);border-radius:11px;padding:14px 14px 15px;text-decoration:none;color:inherit;transition:border-color .15s ease,transform .15s ease}.sequence a:hover,.sequence a:focus-visible{border-color:#7ea4d3;outline:2px solid #b8d2ef;outline-offset:1px;transform:translateY(-1px)}.step{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#eef2f6;color:#425064;font-size:.88rem;font-weight:950;margin-bottom:10px}.sequence strong{display:block;font-size:1.07rem;line-height:1.2;margin-bottom:4px}.sequence span.copy{display:block;color:#657084;font-size:.94rem;line-height:1.35}.start{display:inline-flex;align-items:center;justify-content:center;margin-top:18px;min-height:46px;padding:9px 14px;border-radius:9px;background:#eef5ff;border:1px solid #8fb3df;color:var(--ink);font-weight:850;text-decoration:none}.start:hover,.start:focus-visible{outline:2px solid #8db2df;outline-offset:2px}@media(max-width:640px){main{padding:22px 12px 44px}.sequence a{flex-basis:165px;min-width:165px;padding:12px}.sequence span.copy{font-size:.9rem}}
-</style>
 </head>
 <body>
 <header class="site-shell" data-site-nav data-area="algebra"></header>
-<main>
-  <h1>Algebra</h1>
-  <p class="lead">Build algebra progressively through short interactive classroom activities. Algebra is kept separate from Functions in the student navigation, while every activity can still be mapped directly to the Junior Cycle learning outcomes.</p>
-  <div class="sequence-title">Algebra sequence</div>
-  <nav class="sequence" aria-label="Algebra sequence">
-    <a href="simplify-expressions/"><span class="step">1</span><strong>Simplify Expressions</strong><span class="copy">Collect like terms from repeated variables through mixed expressions and powers.</span></a>
-  </nav>
-  <a class="start" href="simplify-expressions/">Start the sequence →</a>
+<main class="page-stage">
+  <article class="doc-paper">
+    <h1>Algebra</h1>
+    <p class="doc-intro">Short, interactive mathematics activities arranged as a clear teaching sequence. Each H2 below becomes an item in the Algebra dropdown automatically.</p>
+
+    <section class="topic-card">
+      <h2 id="simplify-expressions">Simplify Expressions</h2>
+      <p>Collect like terms, beginning with repeated variables and progressing to mixed expressions and powers.</p>
+      <a class="topic-link" href="simplify-expressions/">Open activity →</a>
+    </section>
+
+    <section class="topic-card">
+      <h2 id="maths-check">Maths Check</h2>
+      <p>A small assessment sandbox for testing question generation, checking answers, feedback and scoring before these features are rolled out more widely.</p>
+      <a class="topic-link" href="test/">Open test page →</a>
+    </section>
+  </article>
 </main>
 </body>
 </html>
