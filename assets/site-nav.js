@@ -10,11 +10,11 @@
     {key:'unifying',label:'Unifying',href:'unifying/'},
     {key:'number',label:'Number',href:'number/'},
     {key:'algebra',label:'Algebra',href:'algebra/'},
-    {key:'functions',label:'Functions',href:'index.html#functions'},
+    {key:'functions',label:'Functions',href:'functions/'},
     {key:'geometry',label:'Geometry',href:'geometry/',menuSource:'specification/appendix-b.html',menuTarget:'geometry/'},
-    {key:'trigonometry',label:'Trigonometry',href:'index.html#trigonometry'},
-    {key:'statistics',label:'Statistics',href:'index.html#statistics'},
-    {key:'probability',label:'Probability',href:'index.html#probability'}
+    {key:'trigonometry',label:'Trigonometry',href:'trigonometry/'},
+    {key:'statistics',label:'Statistics',href:'statistics/'},
+    {key:'probability',label:'Probability',href:'probability/'}
   ];
 
   shell.innerHTML = `
@@ -78,7 +78,7 @@
         a.textContent = h.textContent.trim();
         dropdown.appendChild(a);
       });
-      if (!dropdown.children.length) item.classList.add('no-menu');
+      item.classList.toggle('no-menu', !dropdown.children.length);
     } catch (_) { item.classList.add('no-menu'); }
   };
 
