@@ -7,25 +7,23 @@
   const activeArea = shell.dataset.area || '';
 
   const areas = [
-    ['unifying','Unifying','unifying/'],
-    ['number','Number','index.html#number'],
-    ['algebra','Algebra','algebra/'],
-    ['functions','Functions','index.html#functions'],
-    ['geometry','Geometry','geometry/'],
-    ['trigonometry','Trigonometry','index.html#trigonometry'],
-    ['statistics','Statistics','index.html#statistics'],
-    ['probability','Probability','index.html#probability']
+    {key:'unifying',label:'Unifying',href:'unifying/'},
+    {key:'number',label:'Number',href:'index.html#number'},
+    {key:'algebra',label:'Algebra',href:'algebra/'},
+    {key:'functions',label:'Functions',href:'index.html#functions'},
+    {key:'geometry',label:'Geometry',href:'geometry/',menuSource:'specification/appendix-b.html',menuTarget:'geometry/'},
+    {key:'trigonometry',label:'Trigonometry',href:'index.html#trigonometry'},
+    {key:'statistics',label:'Statistics',href:'index.html#statistics'},
+    {key:'probability',label:'Probability',href:'index.html#probability'}
   ];
 
   shell.innerHTML = `
     <div class="site-shell-inner">
-      <a class="site-brand" href="${url('index.html')}" aria-label="JC Maths home">
-        <span class="site-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>JC Maths</span>
-      </a>
+      <a class="site-brand" href="${url('index.html')}" aria-label="JC Maths home"><span class="site-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>JC Maths</span></a>
       <button class="mobile-nav-toggle" type="button" aria-controls="mainMathsNav" aria-expanded="false" aria-label="Open main navigation"><span class="mobile-nav-icon" aria-hidden="true"></span></button>
       <nav class="site-nav" id="mainMathsNav" aria-label="Main mathematics navigation">
-        ${areas.map(([key,label,href]) => `<div class="site-navitem${activeArea===key?' active':''}" data-area="${key}" data-menu-source="${url(href.split('#')[0] || 'index.html')}"><a class="site-navlink" href="${url(href)}"><span>${label}</span></a><button class="site-navtoggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open ${label} menu"></button><div class="site-dropdown" aria-label="${label} topics"></div></div>`).join('')}
-        <div class="site-navitem reference${activeArea==='specification'?' active':''}" data-area="specification" data-menu-source="${url('specification/')}"><a class="site-navlink" href="${url('specification/')}"><span>Specification</span></a><button class="site-navtoggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open Specification menu"></button><div class="site-dropdown" aria-label="Specification topics"></div></div>
+        ${areas.map(a => `<div class="site-navitem${activeArea===a.key?' active':''}" data-area="${a.key}" data-menu-source="${url(a.menuSource || a.href.split('#')[0] || 'index.html')}" data-menu-target="${url(a.menuTarget || a.href.split('#')[0] || 'index.html')}"><a class="site-navlink" href="${url(a.href)}"><span>${a.label}</span></a><button class="site-navtoggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open ${a.label} menu"></button><div class="site-dropdown" aria-label="${a.label} topics"></div></div>`).join('')}
+        <div class="site-navitem reference${activeArea==='specification'?' active':''}" data-area="specification" data-menu-source="${url('specification/')}" data-menu-target="${url('specification/')}"><a class="site-navlink" href="${url('specification/')}"><span>Specification</span></a><button class="site-navtoggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open Specification menu"></button><div class="site-dropdown" aria-label="Specification topics"></div></div>
       </nav>
     </div>`;
 
@@ -56,6 +54,7 @@
   const buildMenu = async item => {
     const dropdown = item.querySelector('.site-dropdown');
     const source = item.dataset.menuSource;
+    const target = item.dataset.menuTarget || source;
     if (!dropdown || !source) return;
     try {
       let doc;
@@ -75,29 +74,32 @@
         if (!id) return;
         if (doc === document && !h.id) h.id = id;
         const a = document.createElement('a');
-        a.href = `${sourceUrl.href.split('#')[0]}#${id}`;
+        a.href = `${new URL(target).href.split('#')[0]}#${id}`;
         a.textContent = h.textContent.trim();
         dropdown.appendChild(a);
       });
       if (!dropdown.children.length) item.classList.add('no-menu');
-    } catch (_) {
-      item.classList.add('no-menu');
-    }
+    } catch (_) { item.classList.add('no-menu'); }
   };
 
   shell.querySelectorAll('.site-navitem').forEach(item => buildMenu(item));
-  shell.querySelectorAll('[data-nav-toggle]').forEach(button => {
-    button.addEventListener('click', e => {
-      e.preventDefault(); e.stopPropagation();
-      const item = button.closest('.site-navitem');
-      if (!item || item.classList.contains('no-menu')) return;
-      const open = !item.classList.contains('is-open');
-      closeMenus(item);
-      item.classList.toggle('is-open', open);
-      button.setAttribute('aria-expanded', String(open));
-    });
-  });
+  shell.querySelectorAll('[data-nav-toggle]').forEach(button => button.addEventListener('click', e => {
+    e.preventDefault(); e.stopPropagation();
+    const item = button.closest('.site-navitem');
+    if (!item || item.classList.contains('no-menu')) return;
+    const open = !item.classList.contains('is-open');
+    closeMenus(item);
+    item.classList.toggle('is-open', open);
+    button.setAttribute('aria-expanded', String(open));
+  }));
   document.addEventListener('click', e => { if (!shell.contains(e.target)) closeMobile(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobile(); });
   window.addEventListener('resize', () => { if (innerWidth > 1280) closeMobile(); });
+
+  if (/\/specification\/appendix-b\.html$/.test(location.pathname)) {
+    const s = document.createElement('script');
+    s.src = url('assets/geometry-apps.js');
+    s.defer = true;
+    document.body.appendChild(s);
+  }
 })();
