@@ -7,7 +7,7 @@
   const activeArea = shell.dataset.area || '';
 
   const areas = [
-    ['unifying','Unifying','index.html#unifying'],
+    ['unifying','Unifying','unifying/'],
     ['number','Number','index.html#number'],
     ['algebra','Algebra','algebra/'],
     ['functions','Functions','index.html#functions'],
