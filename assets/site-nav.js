@@ -4,25 +4,100 @@
   const script = document.currentScript || [...document.scripts].find(s => /site-nav\.js(?:\?|$)/.test(s.src));
   const root = script ? new URL('../', script.src) : new URL('./', location.href);
   const url = path => new URL(path, root).href;
-  const area = shell.dataset.area || '';
-  const active = name => area === name ? ' active' : '';
+  const activeArea = shell.dataset.area || '';
+
+  const areas = [
+    ['unifying','Unifying','index.html#unifying'],
+    ['number','Number','index.html#number'],
+    ['algebra','Algebra','algebra/'],
+    ['functions','Functions','index.html#functions'],
+    ['geometry','Geometry','geometry/'],
+    ['trigonometry','Trigonometry','index.html#trigonometry'],
+    ['statistics','Statistics','index.html#statistics'],
+    ['probability','Probability','index.html#probability']
+  ];
+
   shell.innerHTML = `
     <div class="site-shell-inner">
-      <a class="site-brand" href="${url('index.html')}" aria-label="JC Maths home"><span class="site-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>JC Maths</span></a>
-      <div class="site-nav-wrap"><div class="site-nav-scroller"><nav class="site-nav" aria-label="Main mathematics navigation">
-        <div class="site-navitem${active('unifying')}"><a class="site-navlink" href="${url('index.html#unifying')}"><span>Unifying</span></a></div>
-        <div class="site-navitem${active('number')}"><a class="site-navlink" href="${url('index.html#number')}"><span>Number</span></a></div>
-        <div class="site-navitem${active('algebra')}"><a class="site-navlink" href="${url('algebra/')}"><span>Algebra</span></a><details class="site-navmenu"><summary aria-label="Open Algebra menu">▾</summary><div class="site-dropdown"><a href="${url('algebra/')}">Algebra overview</a><span class="drop-label">Sequence</span><a href="${url('algebra/simplify-expressions/')}">1 · Simplify Expressions</a></div></details></div>
-        <div class="site-navitem${active('functions')}"><a class="site-navlink" href="${url('index.html#functions')}"><span>Functions</span></a></div>
-        <div class="site-navitem${active('geometry')}"><a class="site-navlink" href="${url('geometry/')}"><span>Geometry</span></a><details class="site-navmenu"><summary aria-label="Open Geometry menu">▾</summary><div class="site-dropdown"><a href="${url('geometry/')}">Geometry overview</a><span class="drop-label">Sequence</span><a href="${url('geometry/player/?lesson=terms')}">1 · Terms</a><a href="${url('geometry/player/?lesson=notation')}">2 · Points &amp; Lines</a><a href="${url('geometry/player/?lesson=axiom')}">3 · Two Points</a><a href="${url('geometry/player/?lesson=parts')}">4 · Parts of an Angle</a><a href="${url('geometry/player/?lesson=angles')}">5 · Exploring Angles</a><a href="${url('geometry/player/?lesson=theorem')}">6 · Vertically Opposite</a></div></details></div>
-        <div class="site-navitem${active('trigonometry')}"><a class="site-navlink" href="${url('index.html#trigonometry')}"><span>Trigonometry</span></a></div>
-        <div class="site-navitem${active('statistics')}"><a class="site-navlink" href="${url('index.html#statistics')}"><span>Statistics</span></a></div>
-        <div class="site-navitem${active('probability')}"><a class="site-navlink" href="${url('index.html#probability')}"><span>Probability</span></a></div>
-        <div class="site-navitem reference${active('specification')}"><a class="site-navlink site-reference-link" href="${url('specification/')}"><span>Specification</span></a><details class="site-navmenu"><summary aria-label="Open specification menu">▾</summary><div class="site-dropdown"><span class="drop-label">Specification</span><a href="${url('specification/')}">Overview</a><a href="${url('specification/index.html#rationale')}">Rationale</a><a href="${url('specification/index.html#aim')}">Aim</a><a href="${url('specification/index.html#course')}">Course structure</a><span class="drop-label">Learning outcomes</span><a href="${url('specification/learning-outcomes.html#unifying')}">Unifying strand</a><a href="${url('specification/learning-outcomes.html#number')}">Number</a><a href="${url('specification/learning-outcomes.html#geometry')}">Geometry &amp; trigonometry</a><a href="${url('specification/learning-outcomes.html#algebra')}">Algebra &amp; functions</a><a href="${url('specification/learning-outcomes.html#statistics')}">Statistics &amp; probability</a><span class="drop-label">Assessment & appendices</span><a href="${url('specification/assessment.html')}">Assessment &amp; Reporting</a><a href="${url('specification/appendix-a.html')}">Appendix A · Action verbs</a><a href="${url('specification/appendix-b.html')}">Appendix B · Geometry</a></div></details></div>
-      </nav></div></div>
+      <a class="site-brand" href="${url('index.html')}" aria-label="JC Maths home">
+        <span class="site-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>JC Maths</span>
+      </a>
+      <button class="mobile-nav-toggle" type="button" aria-controls="mainMathsNav" aria-expanded="false" aria-label="Open main navigation"><span class="mobile-nav-icon" aria-hidden="true"></span></button>
+      <nav class="site-nav" id="mainMathsNav" aria-label="Main mathematics navigation">
+        ${areas.map(([key,label,href]) => `<div class="site-navitem${activeArea===key?' active':''}" data-area="${key}" data-menu-source="${url(href.split('#')[0] || 'index.html')}"><a class="site-navlink" href="${url(href)}"><span>${label}</span></a><button class="site-navtoggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open ${label} menu"></button><div class="site-dropdown" aria-label="${label} topics"></div></div>`).join('')}
+        <div class="site-navitem reference${activeArea==='specification'?' active':''}" data-area="specification" data-menu-source="${url('specification/')}"><a class="site-navlink" href="${url('specification/')}"><span>Specification</span></a><button class="site-navtoggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open Specification menu"></button><div class="site-dropdown" aria-label="Specification topics"></div></div>
+      </nav>
     </div>`;
-  const details = [...shell.querySelectorAll('details.site-navmenu')];
-  details.forEach(item => item.addEventListener('toggle', () => { if (!item.open) return; details.forEach(other => { if (other !== item) other.open = false; }); }));
-  document.addEventListener('click', e => { if (!shell.contains(e.target)) details.forEach(item => item.open = false); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') details.forEach(item => item.open = false); });
+
+  const closeMenus = (except = null) => {
+    shell.querySelectorAll('.site-navitem.is-open').forEach(item => {
+      if (item === except) return;
+      item.classList.remove('is-open');
+      item.querySelector('[data-nav-toggle]')?.setAttribute('aria-expanded','false');
+    });
+  };
+  const mobileToggle = shell.querySelector('.mobile-nav-toggle');
+  const closeMobile = () => {
+    shell.classList.remove('nav-open');
+    mobileToggle?.setAttribute('aria-expanded','false');
+    mobileToggle?.setAttribute('aria-label','Open main navigation');
+    closeMenus();
+  };
+  mobileToggle?.addEventListener('click', e => {
+    e.preventDefault(); e.stopPropagation();
+    const open = !shell.classList.contains('nav-open');
+    shell.classList.toggle('nav-open', open);
+    mobileToggle.setAttribute('aria-expanded', String(open));
+    mobileToggle.setAttribute('aria-label', open ? 'Close main navigation' : 'Open main navigation');
+    if (!open) closeMenus();
+  });
+
+  const slug = text => text.toLowerCase().trim().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  const buildMenu = async item => {
+    const dropdown = item.querySelector('.site-dropdown');
+    const source = item.dataset.menuSource;
+    if (!dropdown || !source) return;
+    try {
+      let doc;
+      const sourceUrl = new URL(source);
+      const currentComparable = location.href.split('#')[0].replace(/index\.html$/,'');
+      const sourceComparable = sourceUrl.href.split('#')[0].replace(/index\.html$/,'');
+      if (currentComparable === sourceComparable) doc = document;
+      else {
+        const response = await fetch(sourceUrl.href, {cache:'no-store'});
+        if (!response.ok) throw new Error('menu source unavailable');
+        doc = new DOMParser().parseFromString(await response.text(), 'text/html');
+      }
+      const headings = [...doc.querySelectorAll('main h2')];
+      dropdown.innerHTML = '';
+      headings.forEach(h => {
+        const id = h.id || slug(h.textContent);
+        if (!id) return;
+        if (doc === document && !h.id) h.id = id;
+        const a = document.createElement('a');
+        a.href = `${sourceUrl.href.split('#')[0]}#${id}`;
+        a.textContent = h.textContent.trim();
+        dropdown.appendChild(a);
+      });
+      if (!dropdown.children.length) item.classList.add('no-menu');
+    } catch (_) {
+      item.classList.add('no-menu');
+    }
+  };
+
+  shell.querySelectorAll('.site-navitem').forEach(item => buildMenu(item));
+  shell.querySelectorAll('[data-nav-toggle]').forEach(button => {
+    button.addEventListener('click', e => {
+      e.preventDefault(); e.stopPropagation();
+      const item = button.closest('.site-navitem');
+      if (!item || item.classList.contains('no-menu')) return;
+      const open = !item.classList.contains('is-open');
+      closeMenus(item);
+      item.classList.toggle('is-open', open);
+      button.setAttribute('aria-expanded', String(open));
+    });
+  });
+  document.addEventListener('click', e => { if (!shell.contains(e.target)) closeMobile(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobile(); });
+  window.addEventListener('resize', () => { if (innerWidth > 1280) closeMobile(); });
 })();
