@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Maths Check — Algebra — JC Maths</title>
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="stylesheet" href="../../assets/site.css">
+<script defer src="../../assets/site-nav.js"></script>
+<style>
+.check-panel{margin-top:18px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:20px}.progress{color:var(--muted);font-size:.88rem;margin:0 0 8px}.question{font-size:1.4rem;font-weight:600;margin:8px 0 18px}.answer-row{display:flex;gap:8px;flex-wrap:wrap}.answer-row input{font:inherit;font-size:1.05rem;min-width:180px;flex:1;padding:9px 10px;border:1px solid #bdc1c6;border-radius:4px}.feedback{min-height:28px;margin:12px 0 0;font-weight:700}.feedback.correct{color:#137333}.feedback.wrong{color:#b3261e}.score-card{margin-top:18px;padding:12px 14px;background:var(--soft);border:1px solid var(--line);border-radius:6px}.working{margin-top:8px;color:var(--muted);font-size:.94rem}
+</style>
+</head>
+<body>
+<header class="site-shell" data-site-nav data-area="algebra"></header>
+<main class="page-stage">
+  <article class="doc-paper">
+    <h1>Algebra Maths Check</h1>
+    <p class="doc-intro">A development page for testing short maths checks. This first version checks simplifying like terms and gives immediate feedback without revealing the answer before an attempt.</p>
+
+    <h2 id="simplifying-like-terms">Simplifying Like Terms</h2>
+    <div class="check-panel" aria-live="polite">
+      <p class="progress" id="progress">Question 1 of 8</p>
+      <div class="question" id="question"></div>
+      <div class="answer-row">
+        <label for="answer" class="sr-only">Your simplified expression</label>
+        <input id="answer" autocomplete="off" inputmode="text" placeholder="Type your answer, e.g. 5x">
+        <button class="check-button" id="check" type="button">Check</button>
+        <button class="check-button" id="next" type="button" hidden>Next</button>
+      </div>
+      <p class="feedback" id="feedback"></p>
+      <p class="working" id="working"></p>
+      <div class="score-card">Score: <strong id="score">0</strong> / <strong id="attempted">0</strong></div>
+    </div>
+
+    <h2 id="what-this-tests">What This Tests</h2>
+    <p>This page is deliberately small. It gives us a safe place to develop reliable answer checking, question generation, hints, scoring, accessibility and teacher controls before extending maths checks across the site.</p>
+  </article>
+</main>
+<script>
+(() => {
+  const questions = [
+    {q:'Simplify: 2x + 3x', a:['5x'], w:'2x + 3x = (2 + 3)x = 5x'},
+    {q:'Simplify: 7a − 2a', a:['5a'], w:'7a − 2a = (7 − 2)a = 5a'},
+    {q:'Simplify: 4y + y', a:['5y'], w:'4y + 1y = 5y'},
+    {q:'Simplify: 3m + 2 + 4m', a:['7m+2','2+7m'], w:'3m + 4m = 7m, so the expression is 7m + 2'},
+    {q:'Simplify: 6p − p + 3', a:['5p+3','3+5p'], w:'6p − p = 5p, so the expression is 5p + 3'},
+    {q:'Simplify: 2x + 5 + 3x − 1', a:['5x+4','4+5x'], w:'2x + 3x = 5x and 5 − 1 = 4, giving 5x + 4'},
+    {q:'Simplify: 4a² + 3a²', a:['7a²','7a^2','7a2'], w:'4a² and 3a² are like terms, so 4a² + 3a² = 7a²'},
+    {q:'Simplify: 5b + 2b² + 3b', a:['8b+2b²','2b²+8b','8b+2b^2','2b^2+8b'], w:'5b + 3b = 8b. The b² term is not like a b term, giving 2b² + 8b.'}
+  ];
+  let i=0, score=0, attempted=0, locked=false;
+  const $=id=>document.getElementById(id);
+  const normalise=s=>s.toLowerCase().replace(/\s+/g,'').replace(/−/g,'-').replace(/\*/g,'').replace(/²/g,'^2');
+  const render=()=>{ $('progress').textContent=`Question ${i+1} of ${questions.length}`; $('question').textContent=questions[i].q; $('answer').value=''; $('answer').disabled=false; $('feedback').textContent=''; $('feedback').className='feedback'; $('working').textContent=''; $('check').hidden=false; $('next').hidden=true; locked=false; $('answer').focus(); };
+  const check=()=>{ if(locked)return; const value=normalise($('answer').value); if(!value){$('feedback').textContent='Enter an answer first.';return;} locked=true; attempted++; const ok=questions[i].a.map(normalise).includes(value); if(ok)score++; $('score').textContent=score; $('attempted').textContent=attempted; $('feedback').textContent=ok?'Correct ✓':'Not quite.'; $('feedback').className='feedback '+(ok?'correct':'wrong'); $('working').textContent=questions[i].w; $('answer').disabled=true; $('check').hidden=true; $('next').hidden=false; $('next').textContent=i===questions.length-1?'Restart':'Next'; };
+  $('check').addEventListener('click',check); $('answer').addEventListener('keydown',e=>{if(e.key==='Enter')check();}); $('next').addEventListener('click',()=>{ if(i===questions.length-1){i=0;score=0;attempted=0;$('score').textContent='0';$('attempted').textContent='0';}else i++; render(); }); render();
+})();
+</script>
+</body>
+</html>
