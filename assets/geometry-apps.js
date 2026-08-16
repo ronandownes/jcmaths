@@ -35,7 +35,9 @@
   if (/\/specification\/appendix-b\.html$/.test(location.pathname)) {
     const main = document.querySelector('main');
     if (main && !main.querySelector('.geometry-apps-panel')) {
-      window.renderGeometryAppLinks(main, { prepend:false });
+      const panel = window.renderGeometryAppLinks(main, { prepend:false });
+      const openingOverview = main.querySelector('.spec-paper');
+      if (openingOverview) openingOverview.after(panel);
     }
   }
 })();
