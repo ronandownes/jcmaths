@@ -89,6 +89,9 @@
     item.classList.toggle('is-open', open);
     button.setAttribute('aria-expanded', String(open));
   }));
+  shell.addEventListener('click', e => {
+    if (e.target.closest('.site-dropdown a')) closeMobile();
+  });
   document.addEventListener('click', e => { if (!shell.contains(e.target)) closeMobile(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobile(); });
   window.addEventListener('resize', () => { if (innerWidth > 1280) closeMobile(); });
