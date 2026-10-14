@@ -34,10 +34,8 @@
     if(open)aside.removeAttribute('inert');else aside.setAttribute('inert','');
   };
   button.addEventListener('click',()=>setOpen(!document.body.classList.contains('strands-open')));
+  setOpen(true);
   document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false)});
-  document.addEventListener('click',e=>{
-    if(document.body.classList.contains('strands-open')&&!aside.contains(e.target)&&!button.contains(e.target))setOpen(false);
-  });
   if(/\/specification\/appendix-b\.html$/.test(location.pathname)){
     const s=document.createElement('script');s.src=link('assets/geometry-apps.js');s.defer=true;document.body.appendChild(s);
   }
