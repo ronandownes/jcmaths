@@ -69,3 +69,23 @@ circle.vertex,circle.arm-point,circle.test-point,.geo-point{stroke:#111!importan
 @media(max-width:1280px){.site-nav-simple{display:flex!important;order:initial;flex:1 1 auto;min-height:48px;max-height:none;flex-direction:row;border:0;margin:0;overflow:visible}.mobile-nav-toggle{display:none!important}.has-strand-sidebar .page-stage{margin-left:0}}
 @media(max-width:760px){.site-nav-simple{justify-content:flex-end}.site-shell-inner{flex-wrap:nowrap}.strand-sidebar{top:64px}.has-strand-sidebar .page-stage{margin-left:0}}
 @media print{.strand-sidebar{display:none!important}}
+
+/* Align the navigation with the compact left card used on Projects. */
+@media(min-width:761px){
+ .has-strand-sidebar .strand-sidebar{position:absolute;top:158px;bottom:auto;left:calc(50% - 425px);width:156px;padding:8px 0 12px;border:1px solid #e1e5e9;background:#fff;box-shadow:0 1px 4px rgba(30,40,50,.1);max-height:calc(100vh - 175px);overflow-y:auto;z-index:5}
+ .has-strand-sidebar.strands-open .strand-sidebar{transform:none;visibility:visible}
+ .has-strand-sidebar .strand-sidebar-heading{padding:10px 16px;text-transform:none;letter-spacing:0;font-size:.83rem;color:#155b88;border-left:3px solid #1592c4;background:#f4f8fa}
+ .has-strand-sidebar .strand-sidebar nav{gap:0;margin:0}
+ .has-strand-sidebar .strand-sidebar nav a{font-size:.78rem;color:#176c9e;padding:10px 15px;border-radius:0}
+ .has-strand-sidebar .strand-sidebar nav a.selected{color:#145a82;background:#f3f7fa;font-weight:700}
+ .has-strand-sidebar .page-stage{margin:0 0 0 calc(50% - 254px);width:min(666px,calc(100% - (50% - 254px) - 20px));padding:22px 0 72px}
+ .has-strand-sidebar .doc-paper{padding:38px 46px 65px;min-height:720px}
+}
+@media(min-width:761px) and (max-width:930px){
+ .has-strand-sidebar .strand-sidebar{left:12px}
+ .has-strand-sidebar .page-stage{margin-left:183px;width:calc(100% - 200px)}
+}
+@media(max-width:760px){
+ .has-strand-sidebar .strand-sidebar{position:fixed;top:64px;bottom:0;left:0;width:min(280px,84vw)}
+ .has-strand-sidebar .page-stage{margin-left:0;width:100%}
+}
