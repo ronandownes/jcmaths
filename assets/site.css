@@ -59,3 +59,13 @@ circle.vertex,circle.arm-point,circle.test-point,.geo-point{stroke:#111!importan
  .has-strand-sidebar .page-stage{margin-left:0}
 }
 @media print{.strand-sidebar{display:none!important}.has-strand-sidebar .page-stage{margin-left:0}}
+
+/* Single top-menu toggle and on-demand strand sidebar */
+.strands-menu-button{display:inline-flex;align-items:center;gap:12px;min-height:46px;padding:0 18px;border:0;border-radius:6px;background:transparent;color:#202124;font:inherit;font-weight:700;cursor:pointer}
+.strands-menu-button:hover,.strands-menu-button[aria-expanded=true]{background:#eaf2ff;color:#174ea6}
+.strand-sidebar{transform:translateX(-110%);visibility:hidden;transition:transform .18s ease,visibility .18s ease;box-shadow:3px 0 12px rgba(0,0,0,.08)}
+.strands-open .strand-sidebar{transform:translateX(0);visibility:visible}
+.has-strand-sidebar .page-stage{margin-left:0}
+@media(max-width:1280px){.site-nav-simple{display:flex!important;order:initial;flex:1 1 auto;min-height:48px;max-height:none;flex-direction:row;border:0;margin:0;overflow:visible}.mobile-nav-toggle{display:none!important}.has-strand-sidebar .page-stage{margin-left:0}}
+@media(max-width:760px){.site-nav-simple{justify-content:flex-end}.site-shell-inner{flex-wrap:nowrap}.strand-sidebar{top:64px}.has-strand-sidebar .page-stage{margin-left:0}}
+@media print{.strand-sidebar{display:none!important}}
